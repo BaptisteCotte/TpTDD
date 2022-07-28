@@ -518,7 +518,7 @@ public class PartieTest {
 		//WHEN
 		p.AjoutPoint(p.getJoueur1());
 		//THEN
-		Assertions.assertEquals(1,p.getJoueur1().getSets());
+		Assertions.assertEquals(1,p.getJoueur1().getJeux());
 	}
 	
 	@Test
@@ -534,7 +534,213 @@ public class PartieTest {
 		//WHEN
 		p.AjoutPoint(p.getJoueur2());
 		//THEN
+		Assertions.assertEquals(1,p.getJoueur2().getJeux());
+	}
+	
+	@Test
+	@DisplayName("Test gain point decisif 5")
+	public void testGainPointDecisif_5() {
+		//GIVEN
+		Partie p = new Partie();
+		p.setJoueur1(new Joueur());
+		p.getJoueur1().setPoints(7);
+		p.setJoueur2(new Joueur());
+		p.getJoueur2().setPoints(7);
+		p.setDecisif(true);
+		//WHEN
+		p.AjoutPoint(p.getJoueur1());
+		//THEN
+		Assertions.assertEquals(0,p.getJoueur1().getJeux());
+	}
+	
+	@Test
+	@DisplayName("Test gain point decisif 6")
+	public void testGainPointDecisif_6() {
+		//GIVEN
+		Partie p = new Partie();
+		p.setJoueur1(new Joueur());
+		p.getJoueur1().setPoints(7);
+		p.setJoueur2(new Joueur());
+		p.getJoueur2().setPoints(7);
+		p.setDecisif(true);
+		//WHEN
+		p.AjoutPoint(p.getJoueur2());
+		//THEN
+		Assertions.assertEquals(0,p.getJoueur2().getJeux());
+	}
+	
+	
+	@Test
+	@DisplayName("Test gain set decisif 1")
+	public void testGainSetDecisif_1() {
+		//GIVEN
+		Partie p = new Partie();
+		p.setJoueur1(new Joueur());
+		p.getJoueur1().setPoints(6);
+		p.setJoueur2(new Joueur());
+		p.getJoueur2().setPoints(5);
+		p.setDecisif(true);
+		//WHEN
+		p.AjoutPoint(p.getJoueur1());
+		//THEN
+		Assertions.assertEquals(1,p.getJoueur1().getSets());
+	}
+	
+	
+	@Test
+	@DisplayName("Test gain set decisif 2")
+	public void testGainSetDecisif_2() {
+		//GIVEN
+		Partie p = new Partie();
+		p.setJoueur1(new Joueur());
+		p.getJoueur1().setPoints(6);
+		p.setJoueur2(new Joueur());
+		p.getJoueur2().setPoints(6);
+		p.setDecisif(true);
+		//WHEN
+		p.AjoutPoint(p.getJoueur1());
+		//THEN
+		Assertions.assertEquals(0,p.getJoueur1().getSets());
+	}
+	
+	
+	@Test
+	@DisplayName("Test gain set decisif 3")
+	public void testGainSetDecisif_3() {
+		//GIVEN
+		Partie p = new Partie();
+		p.setJoueur1(new Joueur());
+		p.getJoueur1().setPoints(5);
+		p.setJoueur2(new Joueur());
+		p.getJoueur2().setPoints(6);
+		p.setDecisif(true);
+		//WHEN
+		p.AjoutPoint(p.getJoueur2());
+		//THEN
 		Assertions.assertEquals(1,p.getJoueur2().getSets());
+	}
+	
+	
+	@Test
+	@DisplayName("Test gain set decisif 4")
+	public void testGainSetDecisif_4() {
+		//GIVEN
+		Partie p = new Partie();
+		p.setJoueur1(new Joueur());
+		p.getJoueur1().setPoints(6);
+		p.setJoueur2(new Joueur());
+		p.getJoueur2().setPoints(6);
+		p.setDecisif(true);
+		//WHEN
+		p.AjoutPoint(p.getJoueur2());
+		//THEN
+		Assertions.assertEquals(0,p.getJoueur2().getSets());
+	}
+	
+	
+	@Test
+	@DisplayName("Test gain partie 1")
+	public void testGainPartie_1() {
+		//GIVEN
+		Partie p = new Partie();
+		p.setJoueur1(new Joueur());
+		p.getJoueur1().setPoints(6);
+		p.getJoueur1().addSet();
+		p.setJoueur2(new Joueur());
+		p.getJoueur2().setPoints(5);
+		p.setDecisif(true);
+		//WHEN
+		p.AjoutPoint(p.getJoueur1());
+		//THEN
+		Assertions.assertEquals(p.getJoueur1(),p.getWinner());
+	}
+	
+	
+	@Test
+	@DisplayName("Test gain partie 2")
+	public void testGainPartie_2() {
+		//GIVEN
+		Partie p = new Partie();
+		p.setJoueur1(new Joueur());
+		p.getJoueur1().setPoints(5);
+		p.setJoueur2(new Joueur());
+		p.getJoueur2().setPoints(6);
+		p.setDecisif(true);
+		p.getJoueur2().addSet();
+		//WHEN
+		p.AjoutPoint(p.getJoueur2());
+		//THEN
+		Assertions.assertEquals(p.getJoueur2(),p.getWinner());
+	}
+	
+	
+	@Test
+	@DisplayName("Test gain partie 3")
+	public void testGainPartie_3() {
+		//GIVEN
+		Partie p = new Partie();
+		p.setJoueur1(new Joueur());
+		p.getJoueur1().setPoints(6);
+		p.setJoueur2(new Joueur());
+		p.getJoueur2().setPoints(5);
+		p.setDecisif(true);
+		//WHEN
+		p.AjoutPoint(p.getJoueur1());
+		//THEN
+		Assertions.assertNotEquals(p.getJoueur1(),p.getWinner());
+	}
+	
+	
+	@Test
+	@DisplayName("Test gain partie 4")
+	public void testGainPartie_4() {
+		//GIVEN
+		Partie p = new Partie();
+		p.setJoueur1(new Joueur());
+		p.getJoueur1().setPoints(5);
+		p.setJoueur2(new Joueur());
+		p.getJoueur2().setPoints(6);
+		p.setDecisif(true);
+		//WHEN
+		p.AjoutPoint(p.getJoueur2());
+		//THEN
+		Assertions.assertNotEquals(p.getJoueur2(),p.getWinner());
+	}
+	
+	
+	@Test
+	@DisplayName("Test bloquage points 1")
+	public void testBloquagePts_1() {
+		//GIVEN
+		Partie p = new Partie();
+		p.setJoueur1(new Joueur());
+		p.getJoueur1().setPoints(0);
+		p.setJoueur2(new Joueur());
+		p.getJoueur2().setPoints(0);
+		p.setDecisif(true);
+		p.setWinner(p.getJoueur1());
+		//WHEN
+		p.AjoutPoint(p.getJoueur1());
+		//THEN
+		Assertions.assertEquals(0,p.getJoueur1().getPoints());
+	}
+	
+	
+	@Test
+	@DisplayName("Test bloquage points 2")
+	public void testBloquagePts_2() {
+		//GIVEN
+		Partie p = new Partie();
+		p.setJoueur1(new Joueur());
+		p.getJoueur1().setPoints(0);
+		p.setJoueur2(new Joueur());
+		p.getJoueur2().setPoints(0);
+		p.setDecisif(true);
+		p.setWinner(p.getJoueur1());
+		//WHEN
+		p.AjoutPoint(p.getJoueur2());
+		//THEN
+		Assertions.assertEquals(0,p.getJoueur2().getPoints());
 	}
 	
 }
